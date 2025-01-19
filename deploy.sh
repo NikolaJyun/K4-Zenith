@@ -14,7 +14,20 @@ print_message() {
     echo -e "${color}[ INFO ] ${message}${NC}"
 }
 
+rm -rf ./Zenith
+
 # Normal deploy (copy and prepare DLLs)
+print_message "${BLUE}" "Creating directory structure..."
+mkdir -p ./Zenith/plugins/K4-Zenith \
+         ./Zenith/shared/K4-ZenithAPI \
+         ./Zenith/plugins/K4-Zenith-TimeStats \
+         ./Zenith/plugins/K4-Zenith-Ranks \
+         ./Zenith/plugins/K4-Zenith-Stats \
+         ./Zenith/plugins/K4-Zenith-Bans \
+         ./Zenith/plugins/K4-Zenith-ExtendedCommands \
+         ./Zenith/plugins/K4-Zenith-CustomTags \
+         ./Zenith/plugins/K4-Zenith-Toplists
+
 print_message "${BLUE}" "Running dotnet publish..."
 dotnet publish -f net8.0 -c Release
 exit_code=$?

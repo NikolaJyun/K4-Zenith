@@ -50,100 +50,104 @@ namespace Zenith
 			Menu = new Menu.KitsuneMenu(this);
 
 			Initialize_API();
-			Initialize_Events();
-			Initialize_Settings();
-			Initialize_Commands();
-			Initialize_Placeholders();
 
-			Player.RegisterModuleSettings(this, new Dictionary<string, object?>
+			AddTimer(3.0f, () => // ! CSS Initialize some variables slow, so we need to wait a bit
 			{
-				{ "ShowClanTags", true },
-				{ "ShowChatTags", true },
-				{ "FreezeInMenu", GetCoreConfig<bool>("Core", "FreezeInMenu") },
-			}, Localizer);
+				Initialize_Events();
+				Initialize_Settings();
+				Initialize_Commands();
+				Initialize_Placeholders();
 
-			RegisterListener<Listeners.OnTick>(() =>
-			{
-				foreach (var player in Player.List.Values)
+				Player.RegisterModuleSettings(this, new Dictionary<string, object?>
 				{
-					if (player.IsValid)
-						player.ShowCenterMessage();
-				}
-			});
+					{ "ShowClanTags", true },
+					{ "ShowChatTags", true },
+					{ "FreezeInMenu", GetCoreConfig<bool>("Core", "FreezeInMenu") },
+				}, Localizer);
 
-			if (hotReload)
-			{
-				Logger.LogCritical(@"*");
-				Logger.LogCritical(@"*");
-				Logger.LogCritical(@"*    ██╗    ██╗ █████╗ ██████╗ ███╗   ██╗██╗███╗   ██╗ ██████╗");
-				Logger.LogCritical(@"*    ██║    ██║██╔══██╗██╔══██╗████╗  ██║██║████╗  ██║██╔════╝");
-				Logger.LogCritical(@"*    ██║ █╗ ██║███████║██████╔╝██╔██╗ ██║██║██╔██╗ ██║██║  ███╗");
-				Logger.LogCritical(@"*    ██║███╗██║██╔══██║██╔══██╗██║╚██╗██║██║██║╚██╗██║██║   ██║");
-				Logger.LogCritical(@"*    ╚███╔███╔╝██║  ██║██║  ██║██║ ╚████║██║██║ ╚████║╚██████╔╝");
-				Logger.LogCritical(@"*     ╚══╝╚══╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝╚═╝  ╚═══╝ ╚═════╝");
-				Logger.LogCritical(@"*");
-				Logger.LogCritical(@"*    WARNING: Hot reloading Zenith Core currently breaks the plugin. Please restart the server instead.");
-				Logger.LogCritical(@"*    More information: https://github.com/roflmuffin/CounterStrikeSharp/issues/565");
-				Logger.LogCritical(@"*");
-
-				var players = Utilities.GetPlayers();
-
-				foreach (var player in players)
+				RegisterListener<Listeners.OnTick>(() =>
 				{
-					if (player != null && player.IsValid && !player.IsBot && !player.IsHLTV)
+					foreach (var player in Player.List.Values)
 					{
-						_ = new Player(this, player, true);
+						if (player.IsValid)
+							player.ShowCenterMessage();
 					}
-				}
-
-				Player.LoadAllOnlinePlayerDataWithSingleQuery(this);
-			}
-
-			AddTimer(3.0f, () =>
-			{
-				string coreFormat = GetCoreConfig<string>("Modular", "PlayerClantagFormat");
-				foreach (var player in Player.List.Values)
-				{
-					if (player.IsValid)
-						player.EnforcePluginValues(coreFormat);
-				}
-			}, TimerFlags.REPEAT);
-
-			AddTimer(60.0f, () =>
-			{
-				int interval = GetCoreConfig<int>("Database", "AutoSaveInterval");
-				if (interval <= 0)
-					return;
-
-				if ((DateTime.Now - _lastStorageSave).TotalMinutes >= interval)
-				{
-					_lastStorageSave = DateTime.Now;
-					_ = Task.Run(() => Player.SaveAllOnlinePlayerDataWithTransaction(this));
-				}
-			}, TimerFlags.REPEAT);
-
-			var overridePlugins = GetModuleConfigValue<List<string>>("Modular", "OverridePlugins");
-			if (overridePlugins.Count != 0)
-			{
-				Logger.LogInformation("Forcing low priority to: " + string.Join(", ", overridePlugins));
-
-				overridePlugins.ForEach(plugin =>
-				{
-					if (IsPluginExists(plugin))
-						Server.ExecuteCommand($"css_plugins unload {plugin}");
 				});
+
+				if (hotReload)
+				{
+					Logger.LogCritical(@"*");
+					Logger.LogCritical(@"*");
+					Logger.LogCritical(@"*    ██╗    ██╗ █████╗ ██████╗ ███╗   ██╗██╗███╗   ██╗ ██████╗");
+					Logger.LogCritical(@"*    ██║    ██║██╔══██╗██╔══██╗████╗  ██║██║████╗  ██║██╔════╝");
+					Logger.LogCritical(@"*    ██║ █╗ ██║███████║██████╔╝██╔██╗ ██║██║██╔██╗ ██║██║  ███╗");
+					Logger.LogCritical(@"*    ██║███╗██║██╔══██║██╔══██╗██║╚██╗██║██║██║╚██╗██║██║   ██║");
+					Logger.LogCritical(@"*    ╚███╔███╔╝██║  ██║██║  ██║██║ ╚████║██║██║ ╚████║╚██████╔╝");
+					Logger.LogCritical(@"*     ╚══╝╚══╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝╚═╝  ╚═══╝ ╚═════╝");
+					Logger.LogCritical(@"*");
+					Logger.LogCritical(@"*    WARNING: Hot reloading Zenith Core currently breaks the plugin. Please restart the server instead.");
+					Logger.LogCritical(@"*    More information: https://github.com/roflmuffin/CounterStrikeSharp/issues/565");
+					Logger.LogCritical(@"*");
+
+					var players = Utilities.GetPlayers();
+
+					foreach (var player in players)
+					{
+						if (player != null && player.IsValid && !player.IsBot && !player.IsHLTV)
+						{
+							_ = new Player(this, player, true);
+						}
+					}
+
+					Player.LoadAllOnlinePlayerDataWithSingleQuery(this);
+				}
 
 				AddTimer(3.0f, () =>
 				{
+					string coreFormat = GetCoreConfig<string>("Modular", "PlayerClantagFormat");
+					foreach (var player in Player.List.Values)
+					{
+						if (player.IsValid)
+							player.EnforcePluginValues(coreFormat);
+					}
+				}, TimerFlags.REPEAT);
+
+				AddTimer(60.0f, () =>
+				{
+					int interval = GetCoreConfig<int>("Database", "AutoSaveInterval");
+					if (interval <= 0)
+						return;
+
+					if ((DateTime.Now - _lastStorageSave).TotalMinutes >= interval)
+					{
+						_lastStorageSave = DateTime.Now;
+						_ = Task.Run(() => Player.SaveAllOnlinePlayerDataWithTransaction(this));
+					}
+				}, TimerFlags.REPEAT);
+
+				var overridePlugins = GetModuleConfigValue<List<string>>("Modular", "OverridePlugins");
+				if (overridePlugins.Count != 0)
+				{
+					Logger.LogInformation("Forcing low priority to: " + string.Join(", ", overridePlugins));
+
 					overridePlugins.ForEach(plugin =>
 					{
 						if (IsPluginExists(plugin))
-							Server.ExecuteCommand($"css_plugins load {plugin}");
+							Server.ExecuteCommand($"css_plugins unload {plugin}");
 					});
-				});
 
-				bool IsPluginExists(string plugin) => Directory.Exists(Path.Combine(ModuleDirectory, "..", plugin));
-			}
+					AddTimer(3.0f, () =>
+					{
+						overridePlugins.ForEach(plugin =>
+						{
+							if (IsPluginExists(plugin))
+								Server.ExecuteCommand($"css_plugins load {plugin}");
+						});
+					});
+
+					bool IsPluginExists(string plugin) => Directory.Exists(Path.Combine(ModuleDirectory, "..", plugin));
+				}
+			});
 		}
 
 		public override void Unload(bool hotReload)
