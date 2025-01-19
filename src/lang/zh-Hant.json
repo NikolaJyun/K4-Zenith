@@ -1,0 +1,28 @@
+{
+  "k4.general.prefix": "{silver}- {gold}+ Zenith + {silver}- ",
+
+  "k4.tag.all": "{white}[全部] ",
+  "k4.tag.dead": "{grey}[死亡] ",
+  "k4.tag.team.ct": "{lightblue}[反恐小組] ",
+  "k4.tag.team.t": "{yellow}[恐怖份子] ",
+  "k4.tag.team.spectator": "{white}[觀戰] ",
+  "k4.tag.team.unassigned": "{white}[未分配] ",
+  "k4.tag.separator": "{white}: ",
+
+  "k4.command.help": "{silver}預期用法: {lime}!{0} {1}",
+  "k4.command.no-permission": "{lightred}您無權使用此指令。",
+  "k4.command.server-only": "{lightred}此指令僅限伺服器使用。",
+  "k4.command.client-only": "{lightred}此指令僅限客戶端使用。",
+
+  "k4.settings.title": " + 設定 +",
+  "k4.settings.disabled": "已禁用",
+  "k4.settings.enabled": "已啟用",
+  "k4.settings.invalid-input": "無效的輸入。請輸入有效的整數。",
+
+  "settings.ShowClanTags": "顯示戰隊標籤",
+  "settings.ShowChatTags": "顯示聊天標籤",
+  "settings.FreezeInMenu": "在選單中凍結",
+
+  "reset.storage.success": "成功重置所有玩家的 {0} 儲存資料。",
+  "reset.storage.all.modules": "所有模組"
+}
