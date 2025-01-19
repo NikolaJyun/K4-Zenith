@@ -1,165 +1,154 @@
 <a name="readme-top"></a>
 
-![GitHub tag (with filter)](https://img.shields.io/github/v/tag/K4ryuu/Project_Template?style=for-the-badge&label=Version)
-![GitHub Repo stars](https://img.shields.io/github/stars/K4ryuu/Project_Template?style=for-the-badge)
-![GitHub issues](https://img.shields.io/github/issues/K4ryuu/Project_Template?style=for-the-badge)
-![GitHub](https://img.shields.io/github/license/K4ryuu/Project_Template?style=for-the-badge)
-![GitHub contributors](https://img.shields.io/github/contributors/K4ryuu/Project_Template?style=for-the-badge)
-![GitHub all releases](https://img.shields.io/github/downloads/K4ryuu/Project_Template/total?style=for-the-badge)
-![GitHub last commit (branch)](https://img.shields.io/github/last-commit/K4ryuu/Project_Template/dev?style=for-the-badge)
+![GitHub tag (with filter)](https://img.shields.io/github/v/tag/K4ryuu/K4-Zenith?style=for-the-badge&label=Version)
+![GitHub Repo stars](https://img.shields.io/github/stars/K4ryuu/K4-Zenith?style=for-the-badge)
+![GitHub issues](https://img.shields.io/github/issues/K4ryuu/K4-Zenith?style=for-the-badge)
+![GitHub](https://img.shields.io/github/license/K4ryuu/K4-Zenith?style=for-the-badge)
+![GitHub all releases](https://img.shields.io/github/downloads/K4ryuu/K4-Zenith/total?style=for-the-badge)
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/K4ryuu/K4-Zenith/dev?style=for-the-badge)
 
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <h1 align="center">K4ryuu</h1>
-  <h3 align="center">PLACE OF TITLE</h3>
-
+  <a href="https://github.com/K4ryuu/K4-Zenith">
+    <img src="https://i.imgur.com/sej1ZzD.png" alt="Logo" width="400" height="256">
+  </a>
+  <h3 align="center">CounterStrike2 | K4-Zenith</h3>
   <p align="center">
-    An awesome CS2 server addon created with <a href="https://github.com/roflmuffin/CounterStrikeSharp"><strong>CounterStrikeSharp</strong></a>
+    K4-Zenith is a core plugin, that allow developers to create their own modules without having to struggle with database connections, player data, etc. It's a really easy to use plugin, with a lot of features and a lot of possibilities. Additionally we provide some official modules for Zenith, to empover your server with more features and high standards.
     <br />
-    <br />
-    <a href="https://github.com/K4ryuu/Project_Template/releases">Download</a>
+    <a href="https://github.com/K4ryuu/K4-Zenith/releases">Download</a>
     ·
-    <a href="https://github.com/K4ryuu/Project_Template/issues/new?assignees=K4ryuu&labels=bug&projects=&template=bug_report.md&title=%5BBUG%5D">Report Bug</a>
+    <a href="https://github.com/K4ryuu/K4-Zenith/issues/new?assignees=K4ryuu&labels=bug&template=bug_report.md&title=%5BBUG%5D">Report Bug</a>
     ·
-    <a href="https://github.com/K4ryuu/Project_Template/issues/new?assignees=K4ryuu&labels=enhancement&projects=&template=feature_request.md&title=%5BREQ%5D">Request Feature</a>
+    <a href="https://github.com/K4ryuu/K4-Zenith/issues/new?assignees=K4ryuu&labels=enhancement&template=feature_request.md&title=%5BREQ%5D">Request Feature</a>
+     ·
+    <a href="https://kitsune-lab.com">Website</a>
+     ·
+    <a href="https://kitsune-lab.com/tickets/create?department_id=2">Hire Us</a>
   </p>
 </div>
 
-<!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#dependencies">Dependencies</a></li>
-        <li><a href="#support-my-work">Support My Work</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li>
-        <a href="#usage">Usage</a>
-        <ul>
-            <li><a href="#commands">Commands</a></li>
-            <li><a href="#console-variables-(convars)">ConVars</a></li>
-      </ul>
-    </li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ol>
-</details>
+> [!WARNING]
+> The plugin is still in development and may contain bugs. Please report any bugs you find in the [issues](https://github.com/K4ryuu/K4-Zenith/issues) section.
 
 <!-- ABOUT THE PROJECT -->
 
 ## About The Project
 
-DESCRIPTION HERE
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+K4-Zenith is a powerful plugin that simplifies the management of player data storage, command and config registration, and provides various features for developers. With K4-Zenith, you can easily handle MySQL player data storage, customize command and config structures, and ensure data validation. The plugin also includes an auto-update feature for configs, eliminating the need to manually update config keys. Additionally, K4-Zenith offers the ability to share config values between modules. It provides a globalized chat-processor, clantag manager, and priority-based actions. You can also register settings, which are added to a !settings menu for all palyers automatically without having to add MySQL or menu structures to your plugin. Using the API, you can leverage Zenith standards to create your own modules that seamlessly integrate with the Zenith core.
 
 ### Dependencies
 
 To use this server addon, you'll need the following dependencies installed:
 
-- [**CounterStrikeSharp**](https://github.com/roflmuffin/CounterStrikeSharp/actions/workflows/cmake-single-platform.yml): CounterStrikeSharp allows you to write server plugins in C# for Counter-Strike 2/Source2/CS2
-- **MySQL Database (Version 5.2 or higher):** This project requires a MySQL database to store and manage data. You can host your own MySQL server or use a third-party hosting service. Make sure it's at least version 5.2 or higher.
+- [**CounterStrikeSharp**](https://github.com/roflmuffin/CounterStrikeSharp/releases): CounterStrikeSharp allows you to write server plugins in C# for Counter-Strike 2/Source2/CS2.
+- **MySQL/MariaDB**: An up-to-date MySQL/MariaDB server is required to store player data, settings and use some of the modules aswell.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### Support My Work
+<!-- ADDONS -->
 
-I offer various ways to support my journey:
+### Official Modules
 
-- 💬 **Request Private Paid Jobs:** Got a specific project in mind? Let's chat, and I'll provide a quote.
-- 🎁 **Subscribe to My Tiers:** Join one of my subscription tiers for exclusive benefits, early access to projects, and personalized support.
-- ☕ **Buy Me a Coffee:** One-time donations keep me motivated and my creativity flowing.
-- 💼 **Shop from My Paid Resources:** Explore and purchase resources I've crafted for private use.
+You can enhance your server with additional features and elevate its standards by utilizing our official modules. These modules are bundled in the Core Package, allowing you to selectively install only the ones you intend to use.
 
-Your support keeps my creative engine running and allows me to share knowledge with the community. Thanks for being part of my journey.
+- **Zenith Stats**: This module provides a comprehensive player statistics system that tracks player statistics globally, as well as per map and per weapon. It includes intuitive menus to display the statistics to the players, allowing them to easily track their progress and performance.
 
-<p align="center">
-<a href="https://www.buymeacoffee.com/k4ryuu">
-<img src="https://img.buymeacoffee.com/button-api/?text=Support My Work&emoji=☕&slug=k4ryuu&button_colour=FF5F5F&font_colour=ffffff&font_family=Inter&outline_colour=000000&coffee_colour=FFDD00" />
-</a>
-</p>
+- **Zenith Time Stats**: This module offers a player time statistics system that accurately tracks playtimes per team, per life state, and globally. It also includes a user-friendly menu to display the statistics to the player, along with playtime notifications to appreciate their dedication and time spent in the game.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+- ⚠️ **Zenith Bans**: This module introduces a powerful admin system designed to simplify server management. It includes essential commands such as ban, kick, mute, gag, slay, slap, and more. Additionally, it provides a database-based player system that enables assigning ranks, permissions, immunity, groups, and even timed ranks like VIPs. With features like connect info, Discord webhooks, and more, this module offers a comprehensive set of tools to effectively manage your server.
 
-<!-- GETTING STARTED -->
+- ⚠️ **Zenith Extended Commands**: This module adds a wide range of fun commands to your server, including commonly used admin commands like respawn, blind, revive, teleportation (tp), item giving (give), and much more. These commands enhance the gameplay experience and provide additional options for server administrators.
 
-## Getting Started
+- **Zenith Custom Tags**: Enhance your server's chat experience with Zenith Custom Tags. This module gives players custom chat colors, ranks, clantags, and chat colors based on permissions or SteamID formats. Customize the chat environment for your community.
 
-Follow these steps to install and use the addon:
+- **Zenith Toplists**: Display top players by given values. Supports Ranks, TimeStats and Stats module.
 
-### Prerequisites
+> [!WARNING]
+> Do not install ⚠️ marked modules, if you are using SimpleAdmin or any similar system. This is because the the modules does the same as SimpleAdmin and can cause conflicts.
 
-Before you begin, ensure you have the following prerequisites:
+<!-- INSTALLATION -->
 
-- A working CS2 (Counter-Strike 2) server.
-- CounterStrikeSharp is up to date and is running on your server.
-- A compatible MySQL database (Version 5.2 or higher) set up and configured.
+## Installation
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+To install the Zenith Core, follow these steps:
 
-### Installation
+1. Download the latest [release](https://github.com/K4ryuu/K4-Zenith/releases/latest).
+2. Extract the contents of the ZIP file to `counterstrikesharp/plugins`. `K4-Zenith` is required, the other are optional to install.
+3. Start your server, which is going to generate the config files to `counterstrikesharp/configs/zenith`.
+4. Modify the config files according to your preferences. Setup the MySQL connection and other settings that you want to customize.
+5. Restart your server to apply the changes.
+6. If Zenith finds old K4-System databases, it will automatically convert them to the new Zenith database structure. Follow the console instructions to complete the conversion.
 
-1. **Download the Addon:** Start by downloading the addon from the [GitHub Releases Page](https://github.com/K4ryuu/Project_Template/releases). Choose the latest release version.
+> [!CAUTION]
+> The core cannot be hotReloaded, so if you update files in `K4-Zenith` folder, you need to restart the server fully. The modules can be hotReloaded, so you can update them without restarting the server.
 
-2. **Extract the Addon:** After downloading, extract the contents of the addon to the counterstrikesharp/plugins directory on your server. Inside the plugins folder, you should have a folder named exactly as the project dll. From the releases, you find it pre zipped with the correct name.
+<!-- CORE COMMANDS -->
 
-3. **Configuration:** The configuration file (if there is any), will be generated automatically inside the configs folder, generated a new folder with the name of the plugin.
+<!-- Panels -->
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+### Officially Supported Web Panels
 
-<!-- USAGE EXAMPLES -->
+These web based panels support Zenith data to be shown. Give some appreciation to them!
 
-## Usage
+- [CSS-Bans](https://github.com/counterstrikesharp-panel/css-bans): CSS-BANS is an admin web panel for Counter-Strike 2, powered by CounterStrikeSharp. It allows for comprehensive management of bans, mutes, VIP statuses, skins, ranks, and more on your CS2 servers.
+- [GameCMS](https://gamecms.org): Everything in one place for your dedicated game server!
 
-The addon provides several commands and console variables (convars) to customize and interact with its features. Here is the list of the key commands and convars you can use:
+### Core Commands
 
-### Commands
+Most of the commands can be set in the configuration files, but here are some of the core commands that are available by default:
 
-- **Command 1:** Describe the first command and how to use it.
+- **!settings**: Opens a menu with all settings that are registered in the Zenith Core.
+- **!placeholderlist**: Lists all placeholders that are available in the Zenith Core. (Required permission @zenith/placeholders)
+- **!zreload**: Reloads all configs that are registered in the Zenith Core. (Required permission @zenith/reload)
+- **!commandlist**: Lists all commands that are registered in the Zenith Core with description and required permissions. (Required permission @zenith/commands)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<!-- PERMISSIONS -->
 
-### Console Variables (Convars)
+### Permissions
 
-- **Convar 1:** Describe the first convar and how to set its value.
+In Zenith, the root permission is designated as @zenith/root instead of @css/root. Please make sure to use @zenith/root for the root permission.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+If you are unsure about which permission is required for a specific command, you can use the command `!commandlist` to retrieve a comprehensive list of all commands along with their corresponding required permissions.
+
+For other permissions such as @zenith-bans/admin, which is necessary to access connect info and other features, you can refer to the value descriptions in the config files.
+
+<!-- CONFIG -->
+
+### Config
+
+The Zenith Core config file is located in the `configs/zenith` folder. You can modify the config file to customize the settings according to your preferences. The config file includes various settings such as MySQL connection details, auto-update settings, and more.
+
+These configuration files are made with YAML, which results in that we add descrptions, default values and more to the config files. This makes it easier for you to understand what each setting does and how to configure it without us having to create wiki pages for each setting.
+
+> [!CAUTION]
+> To avoid any issues, please only modify the `currentValue` in the config files and refrain from making any other changes.
 
 <!-- ROADMAP -->
 
 ## Roadmap
 
-- [ ] No plans for now
+- [ ] Add credits to README
+- [ ] Example developer files
+- [ ] Wall toplists using placeholders from core
+- [ ] Toplists
+- [ ] Admin Menu
+- [ ] Admin Chat commands
+- [ ] Vote Manager module
+- [ ] Game management system + connect messages
+- [ ] Map management system
+- [ ] Module to check last week / month / year playtime
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- CONTRIBUTING -->
+<!-- AUTHORS -->
 
-## Contributing
+## Authors
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+- [**K4ryuu**](https://github.com/K4ryuu) - _Initial work_
 
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+See also the list of [contributors](https://github.com/K4ryuu/K4-Zenith/graphs/contributors) who participated in this project as an outside contributor.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -175,7 +164,6 @@ Distributed under the GPL-3.0 License. See `LICENSE.md` for more information.
 
 ## Contact
 
-- **Discord:** k4ryuu
-- **Email:** k4ryuu@icloud.com
+- **KitsuneLab Team** - [contact@kitsune-lab.com](mailto:contact@kitsune-lab.com)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
