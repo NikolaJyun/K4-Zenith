@@ -23,7 +23,7 @@ public class TopListsPlugin : BasePlugin
 
 	public override string ModuleName => $"K4-Zenith | {MODULE_ID}";
 	public override string ModuleAuthor => "K4ryuu @ KitsuneLab";
-	public override string ModuleVersion => "1.0.4";
+	public override string ModuleVersion => "1.0.5";
 
 	private PluginCapability<IModuleServices>? _moduleServicesCapability;
 	private PlayerCapability<IPlayerServices>? _playerServicesCapability;
@@ -132,25 +132,33 @@ public class TopListsPlugin : BasePlugin
 				using var connection = new MySqlConnection(connectionString);
 				await connection.OpenAsync();
 
-				var columnName = "K4-Zenith-Ranks.storage";
 				foreach (var player in onlinePlayers)
 				{
 					var steamId = player.SteamID;
 					var query = $@"
-						SELECT COUNT(*) + 1 AS Placement
-						FROM zenith_player_storage zps1
-						WHERE JSON_UNQUOTE(JSON_EXTRACT(@ColumnName, '$.Points')) >
-							(SELECT JSON_UNQUOTE(JSON_EXTRACT(@ColumnName, '$.Points'))
-							 FROM zenith_player_storage zps2
-							 WHERE zps2.steam_id = @SteamId)";
+						WITH PlayerPoints AS (
+							SELECT
+								steam_id,
+								CAST(JSON_UNQUOTE(JSON_EXTRACT(`K4-Zenith-Ranks.storage`, '$.Points')) AS DECIMAL(10,2)) as points
+							FROM zenith_player_storage
+							WHERE JSON_EXTRACT(`K4-Zenith-Ranks.storage`, '$.Points') IS NOT NULL
+						)
+						SELECT
+							(SELECT COUNT(*) + 1
+							FROM PlayerPoints pp1
+							WHERE pp1.points > pp2.points) AS Placement
+						FROM PlayerPoints pp2
+						WHERE pp2.steam_id = @SteamId";
 
-					var placement = await connection.QueryFirstOrDefaultAsync<long>(query, new { SteamId = steamId.ToString(), ColumnName = columnName });
+					var placement = await connection.QueryFirstOrDefaultAsync<long>(query,
+						new { SteamId = steamId.ToString() });
+
 					_topPlacementCache[steamId] = Tuple.Create(placement, DateTime.UtcNow);
 				}
 			}
 			catch (Exception ex)
 			{
-				Logger.LogError($"Failed to cache top placements: {ex.Message}");
+				Logger.LogError("Failed to cache top placements: {Error}", ex.Message);
 			}
 		});
 	}

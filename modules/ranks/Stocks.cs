@@ -29,7 +29,7 @@ public sealed partial class Plugin : BasePlugin
 	{
 		if (points == 0) return;
 
-		var vipFlags = GetCachedConfigValue<HashSet<string>>("Settings", "VIPFlags");
+		var vipFlags = GetCachedConfigValue<List<string>>("Settings", "VIPFlags");
 		var vipMultiplier = (decimal)GetCachedConfigValue<double>("Settings", "VipMultiplier");
 		bool scoreboardSync = GetCachedConfigValue<bool>("Settings", "ScoreboardScoreSync");
 		bool showSummaries = GetCachedConfigValue<bool>("Settings", "PointSummaries");
@@ -88,13 +88,10 @@ public sealed partial class Plugin : BasePlugin
 				return;
 
 			bool isRankUp = playerData.Rank is null || CompareRanks(determinedRank, playerData.Rank) > 0;
-			string messageKey = isRankUp ? "k4.phrases.rankup" : "k4.phrases.rankdown";
-			string colorCode = isRankUp ? "#00FF00" : "#FF0000";
-			string rankName = newRankName;
 
 			string htmlMessage = $@"
-            <font color='{colorCode}' class='fontSize-m'>{Localizer[messageKey]}</font><br>
-            <font color='{determinedRank?.HexColor}' class='fontSize-m'>{Localizer["k4.phrases.newrank", rankName]}</font>";
+            <font color='{(isRankUp ? "#00FF00" : "#FF0000")}' class='fontSize-m'>{Localizer[isRankUp ? "k4.phrases.rankup" : "k4.phrases.rankdown"]}</font><br>
+            <font color='{determinedRank?.HexColor}' class='fontSize-m'>{Localizer["k4.phrases.newrank", newRankName]}</font>";
 
 			player.PrintToCenter(htmlMessage, _configAccessor.GetValue<int>("Core", "CenterAlertTime"), ActionPriority.Normal);
 		}

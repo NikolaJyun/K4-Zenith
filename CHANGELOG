@@ -1,3 +1,10 @@
+# 2025.01.19 - 1.0.30
+
+- fix: Type convert issues on config cacher for VIPFlags
+- fix: Block join message while the plugin is not loaded to prevent not replaced ones
+- fix: MySQL compatibility issues with MariaDB
+- optimise: Changed some functions to use less resource allocations
+
 # 2025.01.19 - 1.0.29
 
 - feat: Added lvlbase auto migration

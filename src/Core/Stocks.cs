@@ -13,8 +13,8 @@ namespace Zenith
 {
 	public sealed partial class Plugin : BasePlugin
 	{
-		private readonly ConcurrentDictionary<string, ConcurrentDictionary<string, Func<CCSPlayerController, string>>> _pluginPlayerPlaceholders = new();
-		private readonly ConcurrentDictionary<string, ConcurrentDictionary<string, Func<string>>> _pluginServerPlaceholders = new();
+		public readonly ConcurrentDictionary<string, ConcurrentDictionary<string, Func<CCSPlayerController, string>>> _pluginPlayerPlaceholders = new();
+		public readonly ConcurrentDictionary<string, ConcurrentDictionary<string, Func<string>>> _pluginServerPlaceholders = new();
 
 		private static readonly HashSet<char> _chatColorChars = [.. typeof(ChatColors)
 			.GetFields(BindingFlags.Public | BindingFlags.Static)

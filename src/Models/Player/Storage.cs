@@ -56,7 +56,6 @@ public sealed partial class Player
 		try
 		{
 			string columnName = tableName == TABLE_PLAYER_SETTINGS ? $"{moduleID}.settings" : $"{moduleID}.storage";
-
 			using var connection = plugin.Database.CreateConnection();
 			await connection.OpenAsync();
 
@@ -67,15 +66,16 @@ public sealed partial class Player
 				AND TABLE_NAME = @TableName
 				AND COLUMN_NAME = @ColumnName";
 
-			var columnExists = await connection.ExecuteScalarAsync<int>(columnExistsQuery, new { TableName = tableName, ColumnName = columnName }) > 0;
+			var columnExists = await connection.ExecuteScalarAsync<int>(columnExistsQuery,
+				new { TableName = tableName, ColumnName = columnName }) > 0;
 
 			if (!columnExists)
 			{
 				var addColumnQuery = $@"
-					ALTER TABLE `{tableName}`
-					ADD COLUMN @ColumnName JSON NULL;";
+                ALTER TABLE `{tableName}`
+                ADD COLUMN `{columnName}` JSON NULL";
 
-				await connection.ExecuteAsync(addColumnQuery, new { ColumnName = columnName });
+				await connection.ExecuteAsync(addColumnQuery);
 			}
 		}
 		catch (Exception ex)
@@ -282,6 +282,9 @@ public sealed partial class Player
 		Server.NextWorldUpdate(() =>
 		{
 			_plugin._moduleServices?.InvokeZenithPlayerLoaded(Controller!);
+
+			if (_plugin._pluginServerPlaceholders.IsEmpty)
+				return;
 
 			string joinFormat = _plugin.GetCoreConfig<string>("Modular", "JoinMessage");
 			if (!string.IsNullOrEmpty(joinFormat))

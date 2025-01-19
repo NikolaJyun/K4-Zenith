@@ -76,36 +76,68 @@ namespace Zenith_Bans
 				else
 				{
 					var selectPlayerQuery = $@"
+						WITH PlayerRanks AS (
+							SELECT
+								pr.*,
+								ROW_NUMBER() OVER (
+									PARTITION BY pr.player_id
+									ORDER BY
+										CASE
+											WHEN pr.server_ip = @ServerIp THEN 0
+											WHEN pr.server_ip = 'all' THEN 1
+											ELSE 2
+										END
+								) as rank_priority
+							FROM zenith_bans_player_ranks pr
+							WHERE (pr.server_ip = @ServerIp OR pr.server_ip = 'all')
+						),
+						GroupImmunity AS (
+							SELECT
+								pg.player_rank_id,
+								MAX(ag.immunity) as max_group_immunity
+							FROM zenith_bans_player_groups pg
+							LEFT JOIN zenith_bans_admin_groups ag ON pg.group_name = ag.name
+							GROUP BY pg.player_rank_id
+						)
 						SELECT
-							p.*,
+							p.id,
+							p.steam_id,
+							p.name,
+							p.last_online,
+							p.current_server,
 							GROUP_CONCAT(DISTINCT ipa.ip_address) AS IpAddresses,
-							CASE
-								WHEN COALESCE(pr.immunity, 0) >= COALESCE(MAX(ag.immunity), 0) THEN COALESCE(pr.immunity, 0)
-								ELSE COALESCE(MAX(ag.immunity), 0)
-							END AS Immunity,
-							MAX(pr.rank_expiry) AS RankExpiry,
+							COALESCE(
+								CASE
+									WHEN pr.immunity >= COALESCE(gi.max_group_immunity, 0) THEN pr.immunity
+									ELSE gi.max_group_immunity
+								END,
+								0
+							) AS Immunity,
+							pr.rank_expiry AS RankExpiry,
 							GROUP_CONCAT(DISTINCT pg.group_name) AS GroupsString,
 							GROUP_CONCAT(DISTINCT pp.permission) AS PermissionsString,
 							GROUP_CONCAT(DISTINCT agp.permission) AS GroupPermissionsString,
 							GROUP_CONCAT(DISTINCT CONCAT(po.command, ':', po.value)) AS OverridesString
-						FROM `zenith_bans_players` p
-						LEFT JOIN `zenith_bans_ip_addresses` ipa ON p.id = ipa.player_id
-						LEFT JOIN `zenith_bans_player_ranks` pr ON p.id = pr.player_id
-							AND (pr.server_ip = @ServerIp OR pr.server_ip = 'all')
-						LEFT JOIN `zenith_bans_player_groups` pg ON pr.id = pg.player_rank_id
-						LEFT JOIN `zenith_bans_player_permissions` pp ON pr.id = pp.player_rank_id
-						LEFT JOIN `zenith_bans_admin_groups` ag ON pg.group_name = ag.name
-						LEFT JOIN `zenith_bans_admin_group_permissions` agp ON ag.id = agp.group_id
-						LEFT JOIN `zenith_bans_player_overrides` po ON pr.id = po.player_rank_id
+						FROM zenith_bans_players p
+						LEFT JOIN zenith_bans_ip_addresses ipa ON p.id = ipa.player_id
+						LEFT JOIN PlayerRanks pr ON p.id = pr.player_id AND pr.rank_priority = 1
+						LEFT JOIN zenith_bans_player_groups pg ON pr.id = pg.player_rank_id
+						LEFT JOIN zenith_bans_player_permissions pp ON pr.id = pp.player_rank_id
+						LEFT JOIN GroupImmunity gi ON pr.id = gi.player_rank_id
+						LEFT JOIN zenith_bans_admin_groups ag ON pg.group_name = ag.name
+						LEFT JOIN zenith_bans_admin_group_permissions agp ON ag.id = agp.group_id
+						LEFT JOIN zenith_bans_player_overrides po ON pr.id = po.player_rank_id
 						WHERE p.steam_id = @SteamId
-						GROUP BY p.id, p.steam_id, p.name, p.last_online, p.current_server
-						ORDER BY
-							CASE
-								WHEN pr.server_ip = @ServerIp THEN 0
-								WHEN pr.server_ip = 'all' THEN 1
-								ELSE 2
-							END
-						LIMIT 1;";
+						GROUP BY
+							p.id,
+							p.steam_id,
+							p.name,
+							p.last_online,
+							p.current_server,
+							pr.id,
+							pr.immunity,
+							pr.rank_expiry
+						LIMIT 1";
 
 					var playerDataRaw = await connection.QuerySingleOrDefaultAsync<PlayerDataRaw>(selectPlayerQuery, new { SteamId = steamId, ServerIp = _serverIp });
 
