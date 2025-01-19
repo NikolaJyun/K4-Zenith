@@ -104,7 +104,7 @@ public sealed partial class Plugin : BasePlugin
 		}
 		catch (Exception ex)
 		{
-			Logger.LogError($"Hiba történt a háttérfeladatok futtatása során: {ex.Message}");
+			Logger.LogError($"Error occurred during background tasks: {ex.Message}");
 		}
 	}
 
